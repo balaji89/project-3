@@ -1,50 +1,35 @@
-
-
-
-
+'use strict';
 var gulp = require('gulp'); 
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var connect = require('gulp-connect');
 var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('compress-js', function(){
-
-    gulp.src('js/*.js')
-    .pipe(concat('main.min.js'))
-        .pipe(uglify()) 
-		.pipe(gulp.dest('build/js'))
+gulp.task('scss', function (){
+gulp.src('./scss/**/*.scss')
+.pipe(sass().on('error', sass.logError))
+.pipe(gulp.dest('./css'));
 });
 
-gulp.task('message', function(){
-	console.log('ALL DONE!! GO HAVE LUNCH!!');
-});
-
-
-gulp.task('compress-css', function(){
-	gulp.src('css/*.css')
-    .pipe(concat('main.css'))
-	.pipe(gulp.dest('build/css'))
-});
-
-gulp.task('connect', function() {
-	connect.server();
-});
-
-
-gulp.task('watch', function(){
-    
-    gulp.watch('js/*.js', ['compress-js']);
-	
-	gulp.watch(['css/*.css'],['compress-css']);
+gulp.task('default', function () {
+    return gulp.src('src/app.css')
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('browser-sync', function() {
-    browserSync.init({
-	
-        server: {
-            baseDir: "./"
+browserSync.init({
+	   server: {
+        baseDir: "./"
         }
     });
+gulp.watch('./scss/**/*.scss', ['scss']);
 gulp.watch(["index.html","css/*.css","js/*.js"]).on('change', browserSync.reload);
 });
+
+
+
+
+
