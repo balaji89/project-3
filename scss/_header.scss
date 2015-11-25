@@ -1,0 +1,22 @@
+/* Header */
+/*-----------------------------------------*/
+
+.search-hashtags {
+   background-image: url('../../images/pattern.png');
+   }
+
+.logo {
+   display: block;
+   margin: $base-space-unit auto;
+   max-width: 150px;
+
+   @include tablet {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 200px;
+   }
+
+   @include desktop {
+      max-width: 250px;
+   }
+}

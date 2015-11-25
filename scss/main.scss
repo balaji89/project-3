@@ -1,141 +1,373 @@
- @import "reset";
- @import "mixins";
- @import "fonts";
+ // Imported but not included in the stylesheet.
+
+@import 'variables';
+@import 'mixins';
+
+// Compiled in the stylesheet.
+
+@import "reset";
+@import "fonts";
+@import "footer";
+@import "header";
 ​
-body
-{
+body {
 	font-size: 12px;
   color: #2e2e2e;
   font-family: 'open_sans';
 }
+button {
+   border: $med-grey-border;
+   background-color: $brand-red;
+   color: white;
+   cursor: pointer;
+   display: block;
+   font-weight: bold;
+   padding: ($base-space-unit / 3) ($base-space-unit * 2);
+   text-transform: uppercase;
 
-.banner img
-{
-  width: 20%;
-	padding-left: 25px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.banner
-{
-  width: 100%;
-}
-.searchbox
-  {
-    text-align: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    width: 100%;
-    overflow: auto;
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-  #search
- {
-  background-image: url("../images/pattern.png");
-  }
-#search img
-  {
-  width: 20%;
-  text-align: center;
- }
-
-.album-list{
-  display: flex;
-  flex-direction: column;
-	width: 70%;
-  margin: 40px auto;
-  border: 3px solid #c2c2c2; 
-}
-​
-.pics{
-width: 80%;
-display: flex;
-flex-direction: column;
-margin: 5px auto;
-border: 1px solid #c2c2c2;
+   &:hover {
+      background-color: darken($brand-red, 5%);
+   }
 }
 .container {
-  display:flex;
-  flex-direction: row;
-}
-.profile
-{
-  width: 50px;
-  height: 50px;
-  background-size: cover;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 1rem;
-}
-ul {
-  list-style:none;
-}
-.pics img
-{
-	width: 100%;
-}
-.tags {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  text-align:right;
-  padding-right: .8rem;
-  font-weight: bold;
-}
-.artist-search input
-{
-  padding: 5px;
-}
-​
-#searchtags img
-{
-  width: 50%;
-}
-#searchtags
-{
-  text-align: center;
-}
-
- @include bp(tablet) {
-
- .album-list
- 	{
-  flex-wrap: wrap;
-  flex-direction: row;
- 	width: 90%;
- 	margin: 40px auto;
+    margin: 0 auto;
+    max-width: 1000px;
+   padding-left: 2.5%;
+    padding-right: 2.5%;
+    width: 100%;
  }
-.pics
-  {
-  width: 31%;
-  margin-top: 10px;
+ .screen-reader {
+   border: 0;
+   clip: rect(0 0 0 0);
+   height: 1px;
+   margin: -1px;
+   overflow: hidden;
+   padding: 0;
+   position: absolute;
+   width: 1px;
 }
-.tags {
-	justify-content:center;
- 	text-align:right;
-  padding-right:1rem;
-  }
+ .search-hashtags {
+   padding: ($base-space-unit * 3) 0;
+
+   form {
+      text-align: center;
+   }
+}
+.instagram-icon {
+   display: block;
+   margin: 0 auto;
+   width: 150px;
+}
+/* Search */
+
+.search-form {
+   margin-top: $base-space-unit * 3;
 }
 
-@include bp(desktop) {
-.album-list
-{
-  width: 85%;
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin: 40px auto;
+.search-form-inner {
+   display: inline-block;
+   position: relative;
 }
-.profile
-{
-  width:50px; height:50px;
-  background-size: cover;
-  border-radius:50%;
-  overflow: hidden;
+.search-button {
+   background: none;
+   border: 0;
+   cursor: pointer;
+   font-family: 'FontAwesome';
+   @include font-size(1);
+   line-height: 1;
+   padding: 0;
+   padding-right: $base-space-unit / 3;
+   position: absolute;
+   right: $base-space-unit / 2;
+   top: $base-space-unit / 3;
+
+   span {
+      display: none;
+      font-family: 'Open Sans', sans-serif;
+   }
+
+   &:after {
+      color: $med-grey;
+      content: '\f002';
+   }
+
+   &:hover:after {
+      color: $brand-red;
+   }
+
+   @include tablet {
+      @include font-size(1.1);
+   }
+
+   @include desktop {
+      @include font-size(1.2);
+   }
+
+   &:hover {
+      background: none;
+   }
 }
 
-.pics
-{
-  width: 23%;
-  }
+/* Photo Grid */
+
+.photo-grid {
+   margin-top: $base-space-unit * 3;
+   margin-bottom: $base-space-unit * 3;
 }
+.search-tags {
+   border: $med-grey-border;
+   padding: $base-space-unit / 3;
+}
+.ajax-loader {
+   display: none;
+   margin: $base-space-unit auto;
+}
+
+.load-button {
+   display: none;
+   margin: ($base-space-unit * 2) auto 0;
+}
+.album-list {
+   ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+   }
+
+   li {
+      flex: 0 1 100%;
+      max-width: 100%;
+
+      .inner-item-wrapper {
+         border: $light-grey-border;
+         margin: $base-space-unit / 2;
+      }
+
+      @include big-phone {
+         flex: 0 1 50%;
+         max-width: 50%;
+      }
+
+      @include tablet {
+         flex: 0 1 33.33%;
+         max-width: 33.33%;
+      }
+
+      @include desktop {
+         flex: 0 1 25%;
+         max-width: 25%;
+      }
+   }
+
+   img {
+      border-bottom: $light-grey-border;
+      display: block;
+   }
+}
+.photo-meta {
+   display: flex;
+   padding: $base-space-unit / 2;
+}
+
+.profile {
+   height: auto;
+   overflow: hidden;
+   width: 33%;
+
+   img {
+      border-radius: 50%;
+      max-width: 50px;
+   }
+}
+
+.social {
+   font-weight: bold;
+   text-align: right;
+   width: 67%;
+
+   p:first-child {
+      line-height: 1.5;
+      margin-top: $base-space-unit / 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include tablet {
+         margin-top: $base-space-unit / 6;
+      }
+
+      @include desktop {
+         margin-top: 0;
+      }
+   }
+
+   p:nth-child(2) {
+      @include font-size(.6);
+
+      & span:before {
+         font-family: 'FontAwesome';
+         margin-right: $base-space-unit / 6;
+      }
+
+      & span:first-child:before {
+         content: '\f086';
+      }
+
+      & span:nth-child(2):before {
+         content: '\f004';
+         margin-left: $base-space-unit / 2;
+      }
+
+      @include tablet {
+         @include font-size(.7);
+      }
+
+      @include desktop {
+         @include font-size(.8);
+      }
+   }
+}
+.feedback {
+   font-style: italic;
+   margin: $base-space-unit 0;
+   text-align: center;
+}
+
+
+
+
+
+
+// .screen-reader img {
+//   width: 20%;
+// 	padding-left: 25px;
+// 	margin-top: 10px;
+// 	margin-bottom: 10px;
+// }
+// .searchbox {
+//     text-align: center;
+//     background-size: 100% 100%;
+//     background-repeat: no-repeat;
+//     width: 100%;
+//     overflow: auto;
+//     padding-top: 30px;
+//     padding-bottom: 30px;
+// }
+// .search-button {
+//    background: none;
+//    border: 0;
+//    cursor: pointer;
+//    font-family: 'FontAwesome';
+//    @include font-size(1);
+//    line-height: 1;
+//    padding: 0;
+//    padding-right: $base-space-unit / 3;
+//    position: absolute;
+//    right: $base-space-unit / 2;
+//    top: $base-space-unit / 3;
+
+//    span {
+//       display: none;
+//       font-family: 'Open Sans', sans-serif;
+//    }
+
+//    &:after {
+//       color: $med-grey;
+//       content: '\f002';
+//    }
+
+//    &:hover:after {
+//       color: $brand-red;
+//    }
+// .search img {
+//   width: 20%;
+//   text-align: center;
+//  }
+// .album-list {
+//   display: flex;
+//   flex-direction: column;
+// 	width: 70%;
+//   margin: 40px auto;
+//   border: 3px solid #c2c2c2; 
+// }
+// ​.pics {
+// width: 80%;
+// display: flex;
+// flex-direction: column;
+// margin: 5px auto;
+// border: 1px solid #c2c2c2;
+// }
+// // .container {
+// //   display:flex;
+// //   flex-direction: row;
+// // }
+// 
+// .profile {
+//   width: 50px;
+//   height: 50px;
+//   background-size: cover;
+//   border-radius: 50%;
+//   overflow: hidden;
+//   margin: 1rem;
+// }
+// ul {
+//   list-style:none;
+// }
+// .pics img {
+// 	width: 100%;
+// }
+// .tags {
+//   display:flex;
+//   flex-direction:column;
+//   justify-content:center;
+//   text-align:right;
+//   padding-right: .8rem;
+//   font-weight: bold;
+// }
+// .search-form-inner input {
+//   padding: 5px;
+// }
+// ​.searchtags img {
+//   width: 50%;
+// }
+// .searchtags {
+//   text-align: center;
+// }
+
+//  @include tablet {
+
+//  .album-list {
+//   flex-wrap: wrap;
+//   flex-direction: row;
+//  	width: 90%;
+//  	margin: 40px auto;
+//  }
+// .pics {
+//   width: 31%;
+//   margin-top: 10px;
+// }
+// .tags {
+// 	justify-content:center;
+//  	text-align:right;
+//   padding-right:1rem;
+//   }
+// }
+
+// @include desktop {
+
+// .album-list {
+//   width: 85%;
+//   flex-wrap: wrap;
+//   flex-direction: row;
+//   margin: 40px auto;
+// }
+// .profile {
+//   width:50px; height:50px;
+//   background-size: cover;
+//   border-radius:50%;
+//   overflow: hidden;
+// }
+// .pics {
+//   width: 23%;
+//   }
+// }

@@ -2,40 +2,46 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<title>Instagrid</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<link type="text/css" rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<title>Instagrid</title>
 	</head>
-		<body>
-		<header>
-		<div class="banner">
-		<img src="images/instagrid-logo.svg" alt="Instagrid logo">
-		</div>
-			</header>
-	    <section>
-				<div class="searchbox">
-				<div id="search">
-					<img src="images/instagrid-icon.svg" alt="Instagrid Icon">
-				</div>
-				<div class="itunes-widget">
-					<form action="#" id="album-search">
-     <div class="artist-search">
-        <input type="text" name="artist_name" id="artist-name" placeholder="Enter artist first and last name" />
-        <input type="submit" value="Get Albums" />
-     </div>
-  		</form>
-  	</div>
-  </div>
-</section>
-<footer>
-	<div id="searchtags">
-		<img src="images/search-tags.svg" alt="search"/>
-	</div>
-  <div class="album-list">
-	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-			<script src="js/script.js"></script>
-		</footer>
+	<body>
+		<header class="container">
+			<h1 class="screen-reader">Instagrid</h1>
+			<img src="images/instagrid-logo.svg" alt="Instagrid logo" class="logo" />
+		</header>
+
+	    <section class="search-hashtags">
+			<div class="container">
+				<img src="images/instagrid-icon.svg" alt="Instagrid Icon" class="instagram-icon" />
+				<form class="search-form" action="#" method="post">
+        			<div class="search-form-inner">
+                  		<input type="text" name="hast_tag" id="hash-tag" value="" placeholder="Enter your search...">
+                  		<button class="search-button"><span>Search</span></button>
+     				</div>
+  				</form>
+  			</div>
+		</section>
+
+		<section class="photo-grid container">
+			<div class="search-tags">
+				<img src="images/search-tags.svg" alt="search" class="search-placeholder" />
+  				<div class="album-list"></div>
+  					<img src="images/ajax-loader.gif" alt="Loading..." class="ajax-loader" />
+			</div>
+			<button class="load-button">Load More</button>
+		</section>
+
+			<footer class="container">
+         <div class="copyright">
+            <p>&copy; Copyright 2015 <span class="all-caps">Instagrid</span></p>
+         </div>
+      </footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="js/script.js"></script>
 	</body>
 </html>
